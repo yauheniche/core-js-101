@@ -55,8 +55,14 @@ function parseDataFromIso8601(value) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  if (date.getFullYear() % 100 === 0 && date.getFullYear() % 400 !== 0) {
+    return false;
+  }
+  if (date.getFullYear() % 4 === 0) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -98,8 +104,21 @@ function timeSpanToString(startDate, endDate) {
 *    Date.UTC(2016,3,5,18, 0) => Math.PI
 *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
 */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const minute = new Date(date).getUTCMinutes();
+  let hour = new Date(date).getUTCHours();
+
+  if (hour > 12) hour -= 12;
+  const minAngle = 360 * (minute / 60);
+  const hourAngle = (360 * (hour / 12)) + ((360 / 12) * (minute / 60));
+
+  let angleDeg = Math.abs(hourAngle - minAngle);
+
+  while (angleDeg > 180) {
+    angleDeg -= 180;
+  }
+
+  return angleDeg * (Math.PI / 180);
 }
 
 

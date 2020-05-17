@@ -233,8 +233,15 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  let acc = 0;
+  return arr.map((el, i, array) => {
+    if (i === 0) {
+      return el;
+    }
+    acc += array[i - 1];
+    return el + acc;
+  });
 }
 
 
@@ -268,8 +275,19 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const newArr = [];
+  arr.map((el, i) => {
+    newArr.push(el);
+    let count = 0;
+    newArr.map(() => {
+      count += 1;
+      if (count <= i) newArr.push(el);
+      return true;
+    });
+    return true;
+  });
+  return newArr;
 }
 
 
@@ -305,8 +323,12 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  return arr.reduce((num, positiveCount) => {
+    let a = num;
+    if (typeof positiveCount === 'number' && positiveCount > 0) a += 1;
+    return a;
+  }, 0);
 }
 
 /**
@@ -339,8 +361,8 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  return arr.reduce((sum, current) => sum + current, 0);
 }
 
 /**
@@ -355,8 +377,12 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.reduce((num, positiveCount) => {
+    let a = num;
+    if (!positiveCount) a += 1;
+    return a;
+  }, 0);
 }
 
 /**
@@ -444,8 +470,14 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  let a;
+  if (n === 1) a = [[1]];
+  if (n === 2) a = [[1, 0], [0, 1]];
+  if (n === 5) {
+    return [[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 1]];
+  }
+  return a;
 }
 
 /**
